@@ -16,6 +16,12 @@ export function TodoList() {
     setTasks(data.todos);
   }, []);
 
+  const handleTaskDeleteClick = (deletedTask: TaskType) => {
+    setTasks((previousTasks) =>
+      previousTasks.filter((task) => task !== deletedTask)
+    );
+  };
+
   return (
     <section className={styles.wrapper}>
       <h1>todos</h1>
@@ -50,7 +56,12 @@ export function TodoList() {
                     checked={task.isDone}
                   />
                   <label>{task.title}</label>
-                  <button className={styles.destroy}></button>
+                  <button
+                    onClick={() => {
+                      handleTaskDeleteClick(task);
+                    }}
+                    className={styles.destroy}
+                  ></button>
                 </div>
                 <input className={styles.edit} value="Taste JavaScript" />
               </li>
