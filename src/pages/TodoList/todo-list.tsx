@@ -1,6 +1,21 @@
+import { useEffect, useState } from "react";
+import classNames from "classnames";
+import data from "../../data/todos.json";
 import styles from "./todo-list.module.css";
 
+export type TaskType = {
+  id: string;
+  title: string;
+  isDone: boolean;
+};
+
 export function TodoList() {
+  const [tasks, setTasks] = useState<TaskType[]>([]);
+
+  useEffect(() => {
+    setTasks(data.todos);
+  }, []);
+
   return (
     <section className={styles.wrapper}>
       <h1>todos</h1>
@@ -21,22 +36,25 @@ export function TodoList() {
           />
           <label htmlFor="toggle-all"></label>
           <ul className={styles.todo_list}>
-            <li className={styles.completed}>
-              <div className={styles.view}>
-                <input className={styles.toggle} type="checkbox" />
-                <label>Taste JavaScript</label>
-                <button className={styles.destroy}></button>
-              </div>
-              <input className={styles.edit} value="Taste JavaScript" />
-            </li>
-            <li>
-              <div className={styles.view}>
-                <input className={styles.toggle} type="checkbox" />
-                <label>Buy a unicorn</label>
-                <button className={styles.destroy}></button>
-              </div>
-              <input className={styles.edit} value="Buy a unicorn" />
-            </li>
+            {tasks.flatMap((task) => (
+              <li
+                key={task.id}
+                className={classNames({
+                  completed: task.isDone,
+                })}
+              >
+                <div className={styles.view}>
+                  <input
+                    className={styles.toggle}
+                    type="checkbox"
+                    checked={task.isDone}
+                  />
+                  <label>{task.title}</label>
+                  <button className={styles.destroy}></button>
+                </div>
+                <input className={styles.edit} value="Taste JavaScript" />
+              </li>
+            ))}
           </ul>
         </section>
 
