@@ -22,6 +22,19 @@ export function TodoList() {
     );
   };
 
+  const handleTaskUpdateStatusChange =
+    (updatedTask: TaskType) => (e: React.ChangeEvent<HTMLInputElement>) => {
+      const isDone = e.target.checked;
+
+      setTasks((previousTasks) =>
+        previousTasks.map((task) =>
+          task === updatedTask ? { ...task, isDone } : task
+        )
+      );
+    };
+
+  const activeTasks = tasks.filter((task) => !task.isDone);
+
   return (
     <section className={styles.wrapper}>
       <h1>todos</h1>
@@ -54,6 +67,7 @@ export function TodoList() {
                     className={styles.toggle}
                     type="checkbox"
                     checked={task.isDone}
+                    onChange={handleTaskUpdateStatusChange(task)}
                   />
                   <label>{task.title}</label>
                   <button
@@ -71,7 +85,8 @@ export function TodoList() {
 
         <footer className={styles.footer}>
           <span className={styles.todo_count}>
-            <strong>0</strong> item left
+            <strong>{activeTasks.length}</strong> item
+            {activeTasks.length !== 1 && "s"} left
           </span>
           <ul className={styles.filters}>
             <li>
