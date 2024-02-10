@@ -1,16 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, KeyboardEvent } from "react";
 import classNames from "classnames";
 import data from "../../data/todos.json";
 import styles from "./todo-list.module.css";
 
 export type TaskType = {
-  id: string;
+  id: number;
   title: string;
   isDone: boolean;
 };
 
 export function TodoList() {
   const [tasks, setTasks] = useState<TaskType[]>([]);
+  const [newTaskTitle, setNewTaskTitle] = useState("");
 
   useEffect(() => {
     setTasks(data.todos);
@@ -33,6 +34,23 @@ export function TodoList() {
       );
     };
 
+  const handleNewTaskTitleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    const key = e.key;
+    const title = newTaskTitle.trim();
+
+    if (key === "Enter" && title !== "") {
+      setTasks((previousTasks) =>
+        previousTasks.concat({
+          id: previousTasks.length + 1,
+          title,
+          isDone: false,
+        })
+      );
+
+      setNewTaskTitle("");
+    }
+  };
+
   const activeTasks = tasks.filter((task) => !task.isDone);
 
   return (
@@ -44,6 +62,9 @@ export function TodoList() {
             className={styles.new_todo}
             placeholder="What needs to be done?"
             autoFocus
+            value={newTaskTitle}
+            onChange={(e) => setNewTaskTitle(e.target.value)}
+            onKeyDown={handleNewTaskTitleKeyDown}
           />
         </header>
 
@@ -58,6 +79,7 @@ export function TodoList() {
             {tasks.flatMap((task) => (
               <li
                 key={task.id}
+                // className={styles.completed}
                 className={classNames({
                   completed: task.isDone,
                 })}
