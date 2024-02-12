@@ -115,6 +115,10 @@ export function TodoList() {
     }
   };
 
+  const handleClearCompletedClick = () => {
+    setTasks(activeTasks);
+  };
+
   return (
     <section className=" wrapper">
       <h1>todos</h1>
@@ -202,7 +206,12 @@ export function TodoList() {
               </button>
             </li>
           </ul>
-          <button className="clear_completed">Clear completed</button>
+          <button
+            className="clear_completed"
+            onClick={handleClearCompletedClick}
+          >
+            Clear completed
+          </button>
         </footer>
       </section>
 
