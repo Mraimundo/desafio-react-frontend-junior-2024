@@ -263,20 +263,20 @@
   display: inline;
 }
 
-.filters li a {
+.filters li button {
   color: inherit;
   margin: 0.188rem;
   padding: 0.188rem 0.438rem;
-  text-decoration: none;
+  background: none;
   border: 1px solid transparent;
   border-radius: 3px;
 }
 
-.filters li a:hover {
+.filters li button:hover {
   border-color: var(--red-500);
 }
 
-.filters li a.selected {
+.filters li button.selected {
   border-color: var(--red-500);
 }
 

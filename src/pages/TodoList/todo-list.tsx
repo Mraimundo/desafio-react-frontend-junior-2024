@@ -9,9 +9,12 @@ export type TaskType = {
   isDone: boolean;
 };
 
+type FilterType = "all" | "active" | "completed";
+
 export function TodoList() {
   const [tasks, setTasks] = useState<TaskType[]>([]);
   const [newTaskTitle, setNewTaskTitle] = useState("");
+  const [filter, setFilter] = useState<FilterType>("all");
   const [taskBeingEditedId, setTaskBeingEditedId] = useState<
     TaskType["id"] | null
   >(null);
@@ -90,7 +93,27 @@ export function TodoList() {
       }
     };
 
+  const applyFilterSelectedClass = (filterValue: FilterType) =>
+    classNames({ selected: filter === filterValue });
+
   const activeTasks = tasks.filter((task) => !task.isDone);
+  const completedTasks = tasks.filter((task) => task.isDone);
+
+  const visibleTasks = () => {
+    switch (filter) {
+      case "all":
+        return tasks;
+      case "active":
+        return activeTasks;
+      case "completed":
+        return completedTasks;
+      default: {
+        // Exhaustiveness checking
+        const _exhaustiveCheck: never = filter;
+        return _exhaustiveCheck;
+      }
+    }
+  };
 
   return (
     <section className=" wrapper">
@@ -111,10 +134,9 @@ export function TodoList() {
           <input id="toggle_all" className="toggle_all" type="checkbox" />
           <label htmlFor="toggle-all"></label>
           <ul className="todo_list">
-            {tasks.flatMap((task) => (
+            {visibleTasks().flatMap((task) => (
               <li
                 key={task.id}
-                // className={`$"completed"`}
                 className={classNames({
                   completed: task.isDone,
                   editing: task.id === taskBeingEditedId,
@@ -156,15 +178,28 @@ export function TodoList() {
           </span>
           <ul className="filters">
             <li>
-              <a className=" selected" href="#/">
+              <button
+                className={applyFilterSelectedClass("all")}
+                onClick={() => setFilter("all")}
+              >
                 All
-              </a>
+              </button>
             </li>
             <li>
-              <a href="#/active">Active</a>
+              <button
+                className={applyFilterSelectedClass("active")}
+                onClick={() => setFilter("active")}
+              >
+                Active
+              </button>
             </li>
             <li>
-              <a href="#/completed">Completed</a>
+              <button
+                className={applyFilterSelectedClass("completed")}
+                onClick={() => setFilter("completed")}
+              >
+                Completed
+              </button>
             </li>
           </ul>
           <button className="clear_completed">Clear completed</button>
