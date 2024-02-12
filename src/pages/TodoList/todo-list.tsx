@@ -1,7 +1,7 @@
-import { useEffect, useState, KeyboardEvent } from "react";
+import { useEffect, useRef, useState, KeyboardEvent } from "react";
 import classNames from "classnames";
 import data from "../../data/todos.json";
-import styles from "./todo-list.module.css";
+import "./todo-list.css";
 
 export type TaskType = {
   id: number;
@@ -12,6 +12,13 @@ export type TaskType = {
 export function TodoList() {
   const [tasks, setTasks] = useState<TaskType[]>([]);
   const [newTaskTitle, setNewTaskTitle] = useState("");
+  const [taskBeingEditedId, setTaskBeingEditedId] = useState<
+    TaskType["id"] | null
+  >(null);
+
+  const taskTitlesRef = useRef<{ [index: TaskType["id"]]: HTMLInputElement }>(
+    {}
+  );
 
   useEffect(() => {
     setTasks(data.todos);
@@ -51,15 +58,47 @@ export function TodoList() {
     }
   };
 
+  const handleTaskTitleLabelDoubleClick =
+    (task: TaskType) =>
+    (_e: React.MouseEvent<HTMLLabelElement, MouseEvent>) => {
+      const input = taskTitlesRef.current[task.id];
+
+      setTaskBeingEditedId(task.id);
+
+      input.value = task.title;
+
+      setTimeout(() => input.focus(), 0);
+    };
+
+  const handleTaskTitleKeyDown =
+    (editedTask: TaskType) => (e: React.KeyboardEvent<HTMLInputElement>) => {
+      const input = taskTitlesRef.current[editedTask.id];
+      const { key } = e;
+      const title = input.value.trim();
+
+      if (key === "Enter") {
+        if (title !== "" && title !== editedTask.title)
+          setTasks((previousTasks) =>
+            previousTasks.map((task) =>
+              task === editedTask ? { ...task, title } : task
+            )
+          );
+
+        setTaskBeingEditedId(null);
+      } else if (key === "Escape") {
+        input.value = editedTask.title;
+      }
+    };
+
   const activeTasks = tasks.filter((task) => !task.isDone);
 
   return (
-    <section className={styles.wrapper}>
+    <section className=" wrapper">
       <h1>todos</h1>
-      <section className={styles.todoapp}>
-        <header className={styles.header}>
+      <section className=" todoapp">
+        <header className="header">
           <input
-            className={styles.new_todo}
+            className="new_todo"
             placeholder="What needs to be done?"
             autoFocus
             value={newTaskTitle}
@@ -68,51 +107,56 @@ export function TodoList() {
           />
         </header>
 
-        <section className={styles.main}>
-          <input
-            id="toggle_all"
-            className={styles.toggle_all}
-            type="checkbox"
-          />
+        <section className=" main">
+          <input id="toggle_all" className="toggle_all" type="checkbox" />
           <label htmlFor="toggle-all"></label>
-          <ul className={styles.todo_list}>
+          <ul className="todo_list">
             {tasks.flatMap((task) => (
               <li
                 key={task.id}
-                // className={styles.completed}
+                // className={`$"completed"`}
                 className={classNames({
                   completed: task.isDone,
+                  editing: task.id === taskBeingEditedId,
                 })}
               >
-                <div className={styles.view}>
+                <div className=" view">
                   <input
-                    className={styles.toggle}
+                    className="toggle"
                     type="checkbox"
                     checked={task.isDone}
                     onChange={handleTaskUpdateStatusChange(task)}
                   />
-                  <label>{task.title}</label>
+                  <label onDoubleClick={handleTaskTitleLabelDoubleClick(task)}>
+                    {task.title}
+                  </label>
                   <button
                     onClick={() => {
                       handleTaskDeleteClick(task);
                     }}
-                    className={styles.destroy}
+                    className="destroy"
                   ></button>
                 </div>
-                <input className={styles.edit} value="Taste JavaScript" />
+                <input
+                  ref={(el) => {
+                    if (el !== null) taskTitlesRef.current[task.id] = el;
+                  }}
+                  onKeyDown={handleTaskTitleKeyDown(task)}
+                  className="edit"
+                />
               </li>
             ))}
           </ul>
         </section>
 
-        <footer className={styles.footer}>
-          <span className={styles.todo_count}>
+        <footer className="footer">
+          <span className="todo_count">
             <strong>{activeTasks.length}</strong> item
             {activeTasks.length !== 1 && "s"} left
           </span>
-          <ul className={styles.filters}>
+          <ul className="filters">
             <li>
-              <a className={styles.selected} href="#/">
+              <a className=" selected" href="#/">
                 All
               </a>
             </li>
@@ -123,11 +167,11 @@ export function TodoList() {
               <a href="#/completed">Completed</a>
             </li>
           </ul>
-          <button className={styles.clear_completed}>Clear completed</button>
+          <button className="clear_completed">Clear completed</button>
         </footer>
       </section>
 
-      <footer className={styles.info}>
+      <footer className="info">
         <p>Double-click to edit a todo</p>
         <p>
           Template by <a href="http://sindresorhus.com">Sindre Sorhus</a>
