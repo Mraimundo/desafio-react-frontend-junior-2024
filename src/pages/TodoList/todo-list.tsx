@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState, KeyboardEvent } from "react";
+import { useRef, useState, KeyboardEvent } from "react";
+import { useNavigate } from "react-router-dom";
 import classNames from "classnames";
-import data from "../../data/todos.json";
 import "./todo-list.css";
 
 export type TaskType = {
@@ -9,12 +9,16 @@ export type TaskType = {
   isDone: boolean;
 };
 
-type FilterType = "all" | "active" | "completed";
+export type FilterType = "all" | "active" | "completed";
 
-export function TodoList() {
-  const [tasks, setTasks] = useState<TaskType[]>([]);
+type RouteParams = {
+  filter?: FilterType;
+  tasks: TaskType[];
+  setTasks: React.Dispatch<React.SetStateAction<TaskType[]>>;
+};
+
+export function TodoList({ filter, tasks, setTasks }: RouteParams) {
   const [newTaskTitle, setNewTaskTitle] = useState("");
-  const [filter, setFilter] = useState<FilterType>("all");
   const [taskBeingEditedId, setTaskBeingEditedId] = useState<
     TaskType["id"] | null
   >(null);
@@ -23,9 +27,7 @@ export function TodoList() {
     {}
   );
 
-  useEffect(() => {
-    setTasks(data.todos);
-  }, []);
+  const navigate = useNavigate();
 
   const handleTaskDeleteClick = (deletedTask: TaskType) => {
     setTasks((previousTasks) =>
@@ -109,8 +111,8 @@ export function TodoList() {
         return completedTasks;
       default: {
         // Exhaustiveness checking
-        const _exhaustiveCheck: never = filter;
-        return _exhaustiveCheck;
+        // const _exhaustiveCheck: never = filter;
+        return filter;
       }
     }
   };
@@ -138,7 +140,7 @@ export function TodoList() {
           <input id="toggle_all" className="toggle_all" type="checkbox" />
           <label htmlFor="toggle-all"></label>
           <ul className="todo_list">
-            {visibleTasks().flatMap((task) => (
+            {visibleTasks()?.flatMap((task) => (
               <li
                 key={task.id}
                 className={classNames({
@@ -184,7 +186,7 @@ export function TodoList() {
             <li>
               <button
                 className={applyFilterSelectedClass("all")}
-                onClick={() => setFilter("all")}
+                onClick={() => navigate("/all")}
               >
                 All
               </button>
@@ -192,7 +194,7 @@ export function TodoList() {
             <li>
               <button
                 className={applyFilterSelectedClass("active")}
-                onClick={() => setFilter("active")}
+                onClick={() => navigate("/active")}
               >
                 Active
               </button>
@@ -200,7 +202,7 @@ export function TodoList() {
             <li>
               <button
                 className={applyFilterSelectedClass("completed")}
-                onClick={() => setFilter("completed")}
+                onClick={() => navigate("/completed")}
               >
                 Completed
               </button>
