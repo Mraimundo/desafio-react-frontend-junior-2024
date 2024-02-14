@@ -1,5 +1,4 @@
 import { useRef, useState, KeyboardEvent } from "react";
-import { useNavigate } from "react-router-dom";
 import classNames from "classnames";
 import "./todo-list.css";
 
@@ -15,9 +14,15 @@ type RouteParams = {
   filter?: FilterType;
   tasks: TaskType[];
   setTasks: React.Dispatch<React.SetStateAction<TaskType[]>>;
+  onFilterChange: (filter: FilterType) => void;
 };
 
-export function TodoList({ filter, tasks, setTasks }: RouteParams) {
+export function TodoList({
+  filter,
+  tasks,
+  onFilterChange,
+  setTasks,
+}: RouteParams) {
   const [newTaskTitle, setNewTaskTitle] = useState("");
   const [taskBeingEditedId, setTaskBeingEditedId] = useState<
     TaskType["id"] | null
@@ -26,8 +31,6 @@ export function TodoList({ filter, tasks, setTasks }: RouteParams) {
   const taskTitlesRef = useRef<{ [index: TaskType["id"]]: HTMLInputElement }>(
     {}
   );
-
-  const navigate = useNavigate();
 
   const handleTaskDeleteClick = (deletedTask: TaskType) => {
     setTasks((previousTasks) =>
@@ -186,7 +189,7 @@ export function TodoList({ filter, tasks, setTasks }: RouteParams) {
             <li>
               <button
                 className={applyFilterSelectedClass("all")}
-                onClick={() => navigate("/all")}
+                onClick={() => onFilterChange("all")}
               >
                 All
               </button>
@@ -194,7 +197,7 @@ export function TodoList({ filter, tasks, setTasks }: RouteParams) {
             <li>
               <button
                 className={applyFilterSelectedClass("active")}
-                onClick={() => navigate("/active")}
+                onClick={() => onFilterChange("active")}
               >
                 Active
               </button>
@@ -202,7 +205,7 @@ export function TodoList({ filter, tasks, setTasks }: RouteParams) {
             <li>
               <button
                 className={applyFilterSelectedClass("completed")}
-                onClick={() => navigate("/completed")}
+                onClick={() => onFilterChange("completed")}
               >
                 Completed
               </button>
