@@ -1,6 +1,8 @@
 import { useRef, useState, KeyboardEvent } from "react";
 import classNames from "classnames";
 import "./todo-list.css";
+import { TodoListFooter } from "../../components/TodoListFooter/todo-list-footer";
+import { Footer } from "../../components/Footer/footer";
 
 export type TaskType = {
   id: number;
@@ -138,8 +140,7 @@ export function TodoList({
             onKeyDown={handleNewTaskTitleKeyDown}
           />
         </header>
-
-        <section className=" main">
+        <section className="main">
           <input id="toggle_all" className="toggle_all" type="checkbox" />
           <label htmlFor="toggle-all"></label>
           <ul className="todo_list">
@@ -179,54 +180,14 @@ export function TodoList({
             ))}
           </ul>
         </section>
-
-        <footer className="footer">
-          <span className="todo_count">
-            <strong>{activeTasks.length}</strong> item
-            {activeTasks.length !== 1 && "s"} left
-          </span>
-          <ul className="filters">
-            <li>
-              <button
-                className={applyFilterSelectedClass("all")}
-                onClick={() => onFilterChange("all")}
-              >
-                All
-              </button>
-            </li>
-            <li>
-              <button
-                className={applyFilterSelectedClass("active")}
-                onClick={() => onFilterChange("active")}
-              >
-                Active
-              </button>
-            </li>
-            <li>
-              <button
-                className={applyFilterSelectedClass("completed")}
-                onClick={() => onFilterChange("completed")}
-              >
-                Completed
-              </button>
-            </li>
-          </ul>
-          <button
-            className="clear_completed"
-            onClick={handleClearCompletedClick}
-          >
-            Clear completed
-          </button>
-        </footer>
+        <TodoListFooter
+          activeTasks={activeTasks}
+          onFilterChange={onFilterChange}
+          applyFilterSelectedClass={applyFilterSelectedClass}
+          handleClearCompletedClick={handleClearCompletedClick}
+        />
       </section>
-
-      <footer className="info">
-        <p>Double-click to edit a todo</p>
-        <p>
-          Template by <a href="http://sindresorhus.com">Sindre Sorhus</a>
-        </p>
-        <p>Created by Mouzinho Raimundo</p>
-      </footer>
+      <Footer />
     </section>
   );
 }

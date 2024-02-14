@@ -1,0 +1,72 @@
+.footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: center;
+  padding: 0.625rem 0.938rem;
+  height: 50px;
+  text-align: center;
+  font-size: 0.938rem;
+  border-top: 1px solid var(--slate-100);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 8px 0 -3px #f6f6f6,
+    0 9px 1px -3px rgba(0, 0, 0, 0.2), 0 16px 0 -6px #f6f6f6,
+    0 17px 2px -6px rgba(0, 0, 0, 0.2);
+
+  @media (max-width: 328px) {
+    width: 100%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+  }
+}
+
+.todo_count strong {
+  font-weight: 400;
+}
+
+.filters li {
+  display: inline;
+}
+
+.filters li button {
+  color: inherit;
+  margin: 0.188rem;
+  padding: 0.188rem 0.438rem;
+  text-style: none;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 3px;
+}
+
+.filters li button:hover {
+  border-color: var(--red-500);
+}
+
+.filters li button.selected {
+  border-color: var(--red-500);
+}
+
+.clear_completed {
+  padding: 0.188rem 0.438rem;
+  border: none;
+  background: transparent;
+}
+
+.clear_completed:active {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.clear_completed:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 430px) {
+  .footer {
+    height: 50px;
+  }
+
+  .filters {
+    bottom: 10px;
+  }
+}
