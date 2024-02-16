@@ -1,50 +1,50 @@
-# Teste front-end enContact
+## 💻 Teste front-end enContact
 
-Bem-vindo ao teste para desenvolvimento front-end na enContact.
+Esse projeto foi desenvolvido para demostrar as minhas habilidades técnicas em TypeScript e folhas de estilos, baseado no projeto [Todo MVC](https://todomvc.com).
+O foco deste teste é a implementação de uma lista de tarefas, onde é listado, criado, mudar o título, mudar o estado para concluído ou não, e remover uma tarefa, além das informações de quantas tarefas ainda estão pendentes, filtrar as ativas, completas, e poder limpar as tarefas completas (removendo da lista).
+## 🎨 Layout
 
-## O teste
+![todos](https://github.com/Mraimundo/teste-santander/assets/53385345/4f01670c-81f6-49c1-b42d-0bd636b97684)
 
-Para testar suas habilidades em TypeScript e folhas de estilos, nos baseamos no projeto [Todo MVC](https://todomvc.com).
+## 🥉: Tecnologias
 
-![Todo MVC](data/todos.png "Todo MVC")
+Esse projeto foi desenvolvido com as seguintes tecnologias:
 
-Neste teste você poderá mostrar suas habilidades em gerência de estados, listas utilizando `map`, `filter`, `find`, `reduce`, API, css, entre outros.
+- [Typescript](https://www.typescriptlang.org/)
+- [React](https://reactjs.org/)
+- [Css]()
+- [json-server](https://blog.eleven-labs.com/en/json-server/)
 
-O foco deste teste é a implementação de uma lista de tarefas, onde você deve listar, criar, mudar o título, mudar o estado para concluído ou não, e remover uma tarefa, além das informações de quantas tarefas ainda estão pendentes, filtrar as ativas, completas, e poder limpar as tarefas completas (removendo da lista).
+### Pré-requisitos
 
-## O repositório
+Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
+[Git](https://git-scm.com), [Node.js](https://nodejs.org/en/). 
+Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/)
 
-1. Faça o fork do nosso repositório no Github.
-2. Clone do projeto.
-3. Instale as dependências do projeto (utilizando o `yarn` ou `npm install`).
-4. No arquivo `src/app.tsx` você irá encontrar o esqueleto dessa aplicação, este é seu ponto de partida.
-5. Utilize `yarn start` ou `npm start` para inicializar a aplicação.
+## :notebook: Executando
 
-## O que fazer?
+O **README** mostra como executar as aplicação.
 
-1. Recupere as tarefas iniciais via GET da URL [http://my-json-server.typicode.com/EnkiGroup/DesafioReactEncontact2021/todos](http://my-json-server.typicode.com/EnkiGroup/DesafioReactEncontact2021/todos).
-2. No [projeto Todo MVC](https://todomvc.com) é disponibilizada uma interface estilizada de lista de tarefas. Para testar suas habilidades com estilos, gostaríamos que você repita exatamente o mesmo estilo da imagem abaixo.
-3. Adicione uma tarefa na lista;
-   - Para adicionar, escrever o título da tarefa e pressionar Enter para registrar.
-   - Apresentar a tarefa criada no início da lista.
-   - A tarefa deve ser marcada como "não concluída" ao ser registrada.
-4. Liste as tarefas.
-5. Posso marcar ou desmarcar uma tarefa como concluída.
-6. Ao passar o mouse em cima de uma tarefa podemos ver um ícone de remoção, ao clicar deve-se remover a tarefa.
-7. Ao clicar duas vezes em um item, deve apresentar o modo de edição de uma tarefa.
-8. Ao clicar na seta (ao lado do campo de criação de tarefas no protótipo), posso marcar todas as tarefas como concluídas.
-9. Logo abaixo da lista temos algumas informações no protótipo;
-   - Canto inferior esquerdo: quantidade de **itens restantes** (não marcados como concluído).
-   - Canto inferior direito: botão para limpar (remover) os itens já concluídos com contador.
-   - Filtros "Todos", "Ativos" e "Completos", ao clicar deve filtrar a lista e marcar o botão como ativo. (Obs.: Utilize a URL para os filtros `react-router-dom`).
-     - Todos: Mostra ativos e completos.
-     - Ativos: Mostra apenas os ativos.
-     - Completos: Mostra apenas os completos.
+```bash
+# Clone este repositório
+$ [SSH] git clone git@github.com:Mraimundo/desafio-react-frontend-junior-2024.git
+$ [HTTPS] git clone https://github.com/Mraimundo/desafio-react-frontend-junior-2024.git
 
-<img src="data/todos.gif" alt="Comportamento da lista de tarefas" width="750">
+# Acesse a pasta do projeto no seu terminal/cmd
+$ cd desafio-react-frontend-junior-2024
 
-## Desafio do desafio
+Portanto depois de clonar o repositório digite em seu terminal:
+# Instale as dependências
+$  pnpm install, npm install ou yarn add
 
-Tem um tempinho a mais? Acha que pode fazer mais? Então aqui vai alguns desafios para seu projeto, que serve como um plus no seu teste!
+# Execute a aplicação frontend
+$ npm run start, yarn start
 
-- E se essa aplicação tiver testes?
+$ em seguida localhost:3000 em seu navegador.
+
+# Rodar os teste unitário
+$ npm run test
+
+```
+
+Feito com horas em frente ao :computer: por [Mouzinho Raimundo](https://www.linkedin.com/in/mouzinho-raimundo/)
