@@ -1,8 +1,8 @@
 import { useRef, useState, KeyboardEvent } from "react";
 import classNames from "classnames";
-import "./todo-list.css";
 import { TodoListFooter } from "../../components/TodoListFooter/todo-list-footer";
 import { Footer } from "../../components/Footer/footer";
+import "./todo-list.css";
 
 export type TaskType = {
   id: number;
@@ -12,7 +12,7 @@ export type TaskType = {
 
 export type FilterType = "all" | "active" | "completed";
 
-type RouteParams = {
+export type RouteParams = {
   filter?: FilterType;
   tasks: TaskType[];
   setTasks: React.Dispatch<React.SetStateAction<TaskType[]>>;
@@ -152,17 +152,22 @@ export function TodoList({
                   editing: task.id === taskBeingEditedId,
                 })}
               >
-                <div className=" view">
+                <div className="view">
                   <input
                     className="toggle"
                     type="checkbox"
                     checked={task.isDone}
                     onChange={handleTaskUpdateStatusChange(task)}
                   />
-                  <label onDoubleClick={handleTaskTitleLabelDoubleClick(task)}>
+                  <label
+                    role="listitem"
+                    onDoubleClick={handleTaskTitleLabelDoubleClick(task)}
+                  >
                     {task.title}
                   </label>
                   <button
+                    data-testid={`delete-task-button-${task.id}`}
+                    aria-label="Clique aqui para deletar uma tarefa"
                     onClick={() => {
                       handleTaskDeleteClick(task);
                     }}
