@@ -56,13 +56,14 @@ export function TodoList({
     const title = newTaskTitle.trim();
 
     if (key === "Enter" && title !== "") {
-      setTasks((previousTasks) =>
-        previousTasks.concat({
+      setTasks((previousTasks) => [
+        {
           id: previousTasks.length + 1,
           title,
           isDone: false,
-        })
-      );
+        },
+        ...previousTasks,
+      ]);
 
       setNewTaskTitle("");
     }
