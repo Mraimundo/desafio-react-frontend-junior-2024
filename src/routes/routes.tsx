@@ -5,7 +5,13 @@ import data from "../data/todos.json";
 import { FilterType, TaskType, TodoList } from "../pages/TodoList/todo-list";
 
 export function AppRoutes() {
-  const [tasks, setTasks] = useState<TaskType[]>([]);
+  const [tasks, setTasks] = useState<TaskType[]>(() => {
+    const tasksOnStorage = localStorage.getItem("tasks");
+    if (tasksOnStorage) {
+      return JSON.parse(tasksOnStorage);
+    }
+    return [];
+  });
   const [, setActiveFilter] = useState<FilterType>("all");
   const navigate = useNavigate();
 
