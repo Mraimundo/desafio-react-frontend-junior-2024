@@ -13,7 +13,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - [Typescript](https://www.typescriptlang.org/)
 - [React](https://reactjs.org/)
 - [Css]()
-- [json-server](https://blog.eleven-labs.com/en/json-server/)
+- [classnames](https://www.npmjs.com/package/classnames)
 
 ### Pré-requisitos
 
