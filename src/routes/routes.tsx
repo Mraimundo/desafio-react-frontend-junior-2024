@@ -6,7 +6,7 @@ import { FilterType, TaskType, TodoList } from "../pages/TodoList/todo-list";
 
 export function AppRoutes() {
   const [tasks, setTasks] = useState<TaskType[]>([]);
-  const [activeFilter, setActiveFilter] = useState<FilterType>("all");
+  const [, setActiveFilter] = useState<FilterType>("all");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,13 +19,12 @@ export function AppRoutes() {
   };
 
   const filterMapping: Record<string, FilterType> = {
-    "/": "all",
     "/all": "all",
     "/active": "active",
     "/completed": "completed",
   };
 
-  const renderTodoList = (filter: FilterType): JSX.Element => (
+  const renderTodoList = (filter: FilterType) => (
     <TodoList
       filter={filter}
       tasks={tasks}
