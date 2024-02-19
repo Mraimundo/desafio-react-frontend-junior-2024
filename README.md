@@ -2,6 +2,9 @@
 
 Esse projeto foi desenvolvido para demostrar as minhas habilidades técnicas em TypeScript e folhas de estilos, baseado no projeto [Todo MVC](https://todomvc.com).
 O foco deste teste é a implementação de uma lista de tarefas, onde é preciso listar, criar, mudar o título, mudar o estado para concluído ou não, e remover uma tarefa, além das informações de quantas tarefas ainda estão pendentes, filtrar as ativas, completas, e poder limpar as tarefas completas (removendo da lista).
+
+OBS: O endpoint disponibilizado para fazer o fetch dos dados não funcionou, com isso usei dados mockados para recuperar as tarefas iniciaias.
+
 ## 🎨 Layout
 
 ![todos](https://github.com/Mraimundo/teste-santander/assets/53385345/4f01670c-81f6-49c1-b42d-0bd636b97684)
